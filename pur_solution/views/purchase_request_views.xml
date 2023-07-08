@@ -19,7 +19,7 @@
 
                         <div class="oe_title">
                             <span class="o_form_label"
-                                  attrs="{'invisible': [('state','not in',('draft','confirmed'))]}">Purshase Request
+                                  attrs="{'invisible': [('state','not in',('draft','confirmed'))]}">Purchase Request
                             </span>
                             <h1>
                                 <field name="name" readonly="1"/>

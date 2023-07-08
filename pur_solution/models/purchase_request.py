@@ -31,6 +31,7 @@ class PurchaseRequest(models.Model):
                 'product_qty': line.quantity,
                 'product_uom': line.product_uom_id,
                 'date_planned': fields.Date.today(),
+                'price_unit':1.0
             })
 
             order_line.onchange_product_id()

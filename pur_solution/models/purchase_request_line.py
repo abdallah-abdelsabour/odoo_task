@@ -1,6 +1,7 @@
 from odoo import models, fields,api
 
 class PurchaseRequestLine(models.Model):
+    _inherit = 'purchase.order.line'
     _name = 'purchase.request.line'
     _description = 'Purchase Request Line'
     name=fields.Char(string="Description")
@@ -11,9 +12,6 @@ class PurchaseRequestLine(models.Model):
     product_uom_category_id = fields.Many2one(related='product_id.uom_id.category_id')
     purchase_request_id = fields.Many2one('purchase.request', string='Purchase Request')
 
-    @api.model
-    def create(self,vals):
-        return super(PurchaseRequestLine,self).create(vals)
 
 
     def _get_default_description(self):
