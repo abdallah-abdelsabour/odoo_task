@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <record id="view_purchase_request_form" model="ir.ui.view">
+            <field name="name">purchase.request.form</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Request">
+                    <header>
+
+                        <button name="button_confirm" type="object" string="Confirm"
+                                attrs="{'invisible': [('state', '=', 'confirmed')]}"
+                                class="oe_highlight" id="pur_confirm" data-hotkey="v"/>
+                        class="oe_highlight" id="pur_confirm" data-hotkey="v"/>
+
+                        <field name="state" widget="statusbar"/>
+
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <span class="o_form_label"
+                                  attrs="{'invisible': [('state','not in',('draft','confirmed'))]}">Purshase Request
+                            </span>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="create_date" readonly="1"
+                                       attrs="{'readonly': [('state', '=', 'confirmed')]}"
+                                       class="oe_inline"/>
+                                <field name="created_by" class="oe_inline"/>
+                                <field name="analytical_account_id" attrs="{'readonly': [('state', '=', 'confirmed')]}"
+                                  class="oe_inline oe_highlight "/>
+                            </group>
+                            <group>
+
+                                <field name="requested_on" attrs="{'readonly': [('state', '=', 'confirmed')]}"/>
+                                <field name="requested_by" attrs="{'readonly': [('state', '=', 'confirmed')]}"/>
+                            </group>
+
+                        </group>
+
+                        <notebook>
+                            <page string="products">
+                                <field name="purchase_request_lines" mode="tree,kanban"
+                                       widget="section_and_note_one2many"
+                                       attrs="{'readonly': [('state', '=', 'confirmed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="name"/>
+
+                                        <field name="vendor_id"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="product_uom_category_id" invisible="1"/>
+
+                                    </tree>
+                                </field>
+
+                            </page>
+                            <page string="Purchase orders" name="purchase_requests" readonly="1"
+                                  attrs="{'invisible': [('state', '!=' ,'confirmed')]}"
+                            >
+                                <field name="purchase_orders_ids" attrs="{'readonly': [('state', '=', 'confirmed')]}">
+                                    <tree string="Purchase orders" >
+                                        <field name="name" options="{'clickable': '1'}"/>
+                                        <field name="state"/>
+                                        <field name="create_date"/>
+                                        <field name="create_uid"/>
+                                        <!--                                <field name="requested_by"/>-->
+                                        <!--                                <field name="requested_on"/>-->
+                                        <button name="open_one2many_line" type="object"
+                                                class="oe_highlight oi oi-launch" string="OPEN"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_purchase_request_tree" model="ir.ui.view">
+            <field name="name">purchase.request.tree</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="state"/>
+                    <field name="analytical_account_id"/>
+                    <field name="create_date"/>
+                    <field name="created_by"/>
+                    <field name="requested_by"/>
+                    <field name="requested_on"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
